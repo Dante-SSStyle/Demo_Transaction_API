@@ -1,0 +1,19 @@
+{% load rest_framework %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <title>Транзакция</title>
+</head>
+<body>
+    <h1>Перевод средств по ИНН</h1>
+    <h3 style="color: {{ color }}">{{ error }}</h3>
+    <form action="{% url 'client:transaction' %}" method="post">
+        {% csrf_token %}
+        {% render_form form template_pack='rest_framework/vertical' %}
+        <input type="submit" value="Отправить">
+    </form>
+</body>
+</html>
