@@ -12,7 +12,7 @@
 #### Создание виртуального окружения (здесь использовал virtualenv)
 В директории проекта:
 * Установка virtualenv: <code>sudo pip install virtualenv</code>
-* Создание окружения: <code>virtualenv --python=usr/bin/python3.10} venv</code>
+* Создание окружения: <code>virtualenv --python=usr/bin/python3.10 venv</code>
   * Если путь к python отличается, подставляем нужный в _--python=_ 
 * Активация окружения: <code>source venv/bin/activate</code>
 * Установка необходимых пакетов: <code>pip install -r requirements.txt</code>
