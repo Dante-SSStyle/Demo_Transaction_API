@@ -36,7 +36,7 @@ class TransactionForm(serializers.Serializer):
     def update(self, instance, validated_data):
         pass
 
-    def validate_users(self, user: str) -> str:
+    def validate_users(self, user) -> str:
         form_data = self.get_initial()
         summ = float(form_data["summ"])
         numbers = form_data["numbers"].split(",")
@@ -90,12 +90,9 @@ class TransactionForm(serializers.Serializer):
         if self.numbers_errors:
             raise ValidationError(self.numbers_errors)
 
-        return numbers_list
+        return numbers
 
     def validate_summ(self, value: str) -> str:
         if self.summ_errors:
             raise ValidationError(self.summ_errors)
         return value
-
-
-
