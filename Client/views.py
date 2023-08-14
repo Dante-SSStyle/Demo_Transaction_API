@@ -1,3 +1,4 @@
+from django.db import transaction, IntegrityError
 from django.db.models import F
 from rest_framework import status
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -24,9 +25,16 @@ class Transactions(APIView):
             summ_part = summ / len(serializer.recipient_list)
 
             # Обновление отправителя и получателей
-            user.balance = float(user.balance) - summ
-            user.save()
-            serializer.recipient_list.update(balance=F('balance') + summ_part)
+            try:
+                with transaction.atomic():
+                    user.balance = float(user.balance) - summ
+                    user.save()
+                    serializer.recipient_list.update(balance=F('balance') + summ_part)
+            except IntegrityError:
+                return Response(
+                    {"form": serializer, "error": "Ошибка базы данных.", "color": "red"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
             return Response({"form": TransactionForm(), "error": "Успешная транзакция", "color": "black"})
         else:
