@@ -22,8 +22,6 @@ class ClientAdmin(admin.ModelAdmin):
     @admin.display(description="ИНН")
     def itnumber(self, obj):
         if not obj.ITN:
-        #     return "%012d" % (obj.ITN)
-        # else:
                 return "Не указан"
         return obj.ITN
 
